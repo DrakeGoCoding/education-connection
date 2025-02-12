@@ -16,6 +16,9 @@ export class Student {
   })
   email: string;
 
+  @Column({ name: 'is_suspended', type: 'boolean', default: false })
+  isSuspended: boolean;
+
   @OneToMany(() => TeacherStudent, (teacherStudent) => teacherStudent.student)
   teachers?: Teacher[];
 }

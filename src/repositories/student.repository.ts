@@ -65,4 +65,8 @@ export class StudentRepository extends Repository<Student> {
       )
       .execute();
   }
+
+  suspendStudent(student: Student) {
+    return this.update({ id: student.id }, { isSuspended: true });
+  }
 }
