@@ -81,7 +81,12 @@ export class StudentRepository extends Repository<Student> {
       .leftJoin(TeacherStudent, 'ts', 'ts.student_id = s.id')
       .where('s.is_suspended is false')
       .andWhere(
-        `(s.email IN (${studentEmails.map((email) => `'${email}'`).join(',')}) OR ts.teacher_id = ${teacherId})`
+        `s.email IN (:...studentEmails) OR ts.teacher_id = :teacherId`,
+        {
+          // if studentEmails is empty, add an empty string to avoid an empty array
+          studentEmails: !studentEmails.length ? [''] : studentEmails,
+          teacherId,
+        }
       )
       .getMany();
   }
