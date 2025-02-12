@@ -49,19 +49,17 @@ export class StudentRepository extends Repository<Student> {
       .innerJoin(
         (subQuery) =>
           subQuery
-            // select all columns from the `TeacherStudent` table
-            .select('*')
+            // select student_id from the `TeacherStudent` table
+            .select('ts.student_id')
             .from(TeacherStudent, 'ts')
             // filter the results based on the `teacher_id` being in the array of `teachers`
-            .where(`ts.teacher_id IN (:teacherIds)`, {
-              teacherIds: teachers.map((t) => t.id).join(','),
-            })
+            .where(
+              `ts.teacher_id IN (${teachers.map((teacher) => teacher.id).join(',')})`
+            )
             // group the results by `student_id`
             .groupBy('ts.student_id')
             // filter the groups to only include those with a count equal to the number of `teachers`
-            .having(`COUNT(ts.student_id) = :count`, {
-              count: teachers.length,
-            }),
+            .having(`COUNT(ts.student_id) = ${teachers.length}`),
         'subQuery',
         'subQuery.student_id = s.id'
       )
