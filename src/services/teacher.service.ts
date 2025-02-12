@@ -124,8 +124,6 @@ export class TeacherService {
         mentionedStudentEmails
       );
 
-    console.log(students);
-
     return {
       recipients: students.map((student) => student.email),
     };
