@@ -9,6 +9,7 @@ import {
 } from '@nestjs/common';
 
 import { GetCommonStudentsDto } from '@/dtos/get-common-students.dto';
+import { GetNotificationReceivableStudentsDto } from '@/dtos/get-notification-receivable-students.dto';
 import { RegisterStudentsDto } from '@/dtos/register-students.dto';
 import { SuspendStudentDto } from '@/dtos/suspend-student.dto';
 import { TeacherService } from '@/services/teacher.service';
@@ -33,5 +34,16 @@ export class TeacherController {
   @HttpCode(HttpStatus.NO_CONTENT)
   async suspendStudent(@Body() suspendStudentDto: SuspendStudentDto) {
     return this.teacherService.suspendStudent(suspendStudentDto);
+  }
+
+  @Post('/retrievefornotifications')
+  @HttpCode(HttpStatus.OK)
+  async getNotificationReceivableStudents(
+    @Body()
+    getNotificationReceivableStudentsDto: GetNotificationReceivableStudentsDto
+  ) {
+    return this.teacherService.getNotificationReceivableStudents(
+      getNotificationReceivableStudentsDto
+    );
   }
 }

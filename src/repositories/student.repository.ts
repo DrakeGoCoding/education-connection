@@ -69,4 +69,20 @@ export class StudentRepository extends Repository<Student> {
   suspendStudent(student: Student) {
     return this.update({ id: student.id }, { isSuspended: true });
   }
+
+  async getNotificationReceivableStudents(
+    teacherId: Teacher['id'],
+    studentEmails: string[]
+  ): Promise<Student[]> {
+    return this.dataSource
+      .createQueryBuilder()
+      .select(['s.id', 's.email'])
+      .from(Student, 's')
+      .leftJoin(TeacherStudent, 'ts', 'ts.student_id = s.id')
+      .where('s.is_suspended is false')
+      .andWhere(
+        `(s.email IN (${studentEmails.map((email) => `'${email}'`).join(',')}) OR ts.teacher_id = ${teacherId})`
+      )
+      .getMany();
+  }
 }

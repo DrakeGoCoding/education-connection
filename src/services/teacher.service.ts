@@ -1,11 +1,13 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 
 import { GetCommonStudentsDto } from '@/dtos/get-common-students.dto';
+import { GetNotificationReceivableStudentsDto } from '@/dtos/get-notification-receivable-students.dto';
 import { RegisterStudentsDto } from '@/dtos/register-students.dto';
 import { SuspendStudentDto } from '@/dtos/suspend-student.dto';
 import { StudentRepository } from '@/repositories/student.repository';
 import { TeacherStudentRepository } from '@/repositories/teacher-student.repository';
 import { TeacherRepository } from '@/repositories/teacher.repository';
+import NotificationUtils from '@/utils/notification';
 
 @Injectable()
 export class TeacherService {
@@ -98,5 +100,32 @@ export class TeacherService {
     }
 
     await this.studentRepository.suspendStudent(foundStudent);
+  }
+
+  async getNotificationReceivableStudents(
+    getNotificationReceivableStudentsDto: GetNotificationReceivableStudentsDto
+  ) {
+    const { teacher: teacherEmail, notification } =
+      getNotificationReceivableStudentsDto;
+
+    const foundTeacher =
+      await this.teacherRepository.findOneByEmail(teacherEmail);
+
+    if (!foundTeacher) {
+      throw new HttpException('Teacher not found', HttpStatus.BAD_REQUEST);
+    }
+
+    const mentionedStudentEmails =
+      NotificationUtils.extractMentionedEmails(notification);
+
+    const students =
+      await this.studentRepository.getNotificationReceivableStudents(
+        foundTeacher.id,
+        mentionedStudentEmails
+      );
+
+    return {
+      recipients: students.map((student) => student.email),
+    };
   }
 }
