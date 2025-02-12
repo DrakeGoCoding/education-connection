@@ -2,6 +2,7 @@ import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 
 import { GetCommonStudentsDto } from '@/dtos/get-common-students.dto';
 import { RegisterStudentsDto } from '@/dtos/register-students.dto';
+import { SuspendStudentDto } from '@/dtos/suspend-student.dto';
 import { StudentRepository } from '@/repositories/student.repository';
 import { TeacherStudentRepository } from '@/repositories/teacher-student.repository';
 import { TeacherRepository } from '@/repositories/teacher.repository';
@@ -59,7 +60,7 @@ export class TeacherService {
    *
    * @param getCommonStudentsDto - Data transfer object containing an array of teacher emails.
    *
-   * @returns A promise that resolves to an array of students who are common to all specified teachers.
+   * @returns A promise that resolves to an array of student emails who are common to all specified teachers.
    *
    * @throws {HttpException} - Throws an exception if any of the teachers are not found.
    */
@@ -83,5 +84,19 @@ export class TeacherService {
     const commonStudentEmails = commonStudents.map((student) => student.email);
 
     return { students: commonStudentEmails };
+  }
+
+  async suspendStudent(suspendStudentDto: SuspendStudentDto) {
+    const { student: studentEmail } = suspendStudentDto;
+
+    // check if student exists
+    const foundStudent =
+      await this.studentRepository.findOneByEmail(studentEmail);
+
+    if (!foundStudent) {
+      throw new HttpException('Student not found', HttpStatus.BAD_REQUEST);
+    }
+
+    await this.studentRepository.suspendStudent(foundStudent);
   }
 }
