@@ -1,5 +1,14 @@
-import { Body, Controller, HttpCode, HttpStatus, Post } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  HttpCode,
+  HttpStatus,
+  Post,
+  Query,
+} from '@nestjs/common';
 
+import { GetCommonStudentsDto } from '@/dtos/get-common-students.dto';
 import { RegisterStudentsDto } from '@/dtos/register-students.dto';
 import { TeacherService } from '@/services/teacher.service';
 
@@ -9,7 +18,13 @@ export class TeacherController {
 
   @Post('/register')
   @HttpCode(HttpStatus.NO_CONTENT)
-  async registerStudents(@Body() registerStudentDto: RegisterStudentsDto) {
-    return this.teacherService.registerStudents(registerStudentDto);
+  async registerStudents(@Body() registerStudentsDto: RegisterStudentsDto) {
+    return this.teacherService.registerStudents(registerStudentsDto);
+  }
+
+  @Get('/commonstudents')
+  @HttpCode(HttpStatus.OK)
+  async getCommonStudents(@Query() getCommonStudentsDto: GetCommonStudentsDto) {
+    return this.teacherService.getCommonStudents(getCommonStudentsDto);
   }
 }
