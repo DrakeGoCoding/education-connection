@@ -3,7 +3,20 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { join } from 'path';
 
+import { DatabaseController } from '@/controllers/database.controller';
+import { StudentRepository } from '@/repositories/student.repository';
+import { TeacherStudentRepository } from '@/repositories/teacher-student.repository';
+import { TeacherRepository } from '@/repositories/teacher.repository';
+import { DatabaseService } from '@/services/database.service';
+
 @Module({
+  controllers: [DatabaseController],
+  providers: [
+    DatabaseService,
+    TeacherRepository,
+    StudentRepository,
+    TeacherStudentRepository,
+  ],
   imports: [
     TypeOrmModule.forRootAsync({
       imports: [ConfigModule],
