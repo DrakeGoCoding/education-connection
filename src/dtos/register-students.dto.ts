@@ -1,3 +1,4 @@
+import { IsArrayUnique } from '@/validators/is-array-unique.validator';
 import {
   ArrayNotEmpty,
   IsArray,
@@ -15,5 +16,6 @@ export class RegisterStudentsDto {
   @IsArray()
   @ArrayNotEmpty()
   @IsEmail({}, { each: true })
+  @IsArrayUnique({})
   students: string[];
 }
