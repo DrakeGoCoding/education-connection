@@ -1,0 +1,9 @@
+{
+  "editor.fontSize": 13,
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": "explicit",
+    "source.organizeImports": "explicit"
+  },
+  "files.trimFinalNewlines": true,
+  "prettier.configPath": ".prettierrc"
+}
