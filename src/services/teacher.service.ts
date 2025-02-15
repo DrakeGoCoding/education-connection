@@ -88,6 +88,13 @@ export class TeacherService {
     return { students: commonStudentEmails };
   }
 
+  /**
+   * Suspends a student based on the given student email.
+   *
+   * @param suspendStudentDto - Data transfer object containing the student's email to be suspended.
+   *
+   * @throws {HttpException} - Throws an exception if the student is not found.
+   */
   async suspendStudent(suspendStudentDto: SuspendStudentDto) {
     const { student: studentEmail } = suspendStudentDto;
 
@@ -102,6 +109,17 @@ export class TeacherService {
     await this.studentRepository.suspendStudent(foundStudent);
   }
 
+  /**
+   * Retrieves a list of student emails who are eligible to receive a notification
+   * from a given teacher, taking into account the students mentioned in the notification.
+   *
+   * @param getNotificationReceivableStudentsDto - Data transfer object containing the teacher's email
+   *                                              and the notification message.
+   *
+   * @returns A promise that resolves to an object containing the list of recipient student emails.
+   *
+   * @throws {HttpException} - Throws an exception if the teacher is not found.
+   */
   async getNotificationReceivableStudents(
     getNotificationReceivableStudentsDto: GetNotificationReceivableStudentsDto
   ) {

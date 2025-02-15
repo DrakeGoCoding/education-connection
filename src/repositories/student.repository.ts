@@ -66,10 +66,29 @@ export class StudentRepository extends Repository<Student> {
       .execute();
   }
 
+  /**
+   * Suspends the specified student by updating their suspended status.
+   *
+   * @param student - The student entity to be suspended.
+   *
+   * @returns A promise that resolves when the student's suspension status is updated.
+   */
   suspendStudent(student: Student) {
     return this.update({ id: student.id }, { isSuspended: true });
   }
 
+  /**
+   * Retrieves a list of students who are eligible to receive notifications
+   * from a specified teacher. This includes students who are either directly
+   * mentioned by email or are associated with the teacher and not suspended.
+   *
+   * @param teacherId - The ID of the teacher.
+   * @param studentEmails - An array of student email addresses to include
+   *                        in the search.
+   *
+   * @returns A promise that resolves to an array of students who match
+   *          the criteria.
+   */
   async getNotificationReceivableStudents(
     teacherId: Teacher['id'],
     studentEmails: string[]
