@@ -61,7 +61,7 @@
         "header": [],
         "body": {
           "mode": "raw",
-          "raw": "{\r\n    \"students\": \"student1@gmail.com\"\r\n}",
+          "raw": "{\r\n    \"student\": \"student1@gmail.com\"\r\n}",
           "options": {
             "raw": {
               "language": "json"

@@ -5,11 +5,16 @@
 Education Connection is a back-end application that helps teachers perform administrative functions for their students, built using the [NestJS](https://nestjs.com/) framework.
 
 ## Features
+
 - Teacher can register one or more students to a specified teacher
 - Teacher can retrieve a list of students common to a given list of teachers
 - Teacher can suspend a specified student
 - Teacher can retrieve a list of students who can receive a given notification
 
+## Pre-requisites
+- Node.js v22.12.0
+- Docker
+- Postman
 
 ## Project setup
 
@@ -21,9 +26,28 @@ $ yarn install
 
 To run this project, you will need to create a `.env` file in the root directory by copying the `.env.template` file.
 
-```bash	
+```bash
 $ cp .env.template .env
 ```
+
+Inside `.env` file, you can setup by your own or you can use the following environment variables:
+
+```plaintext
+PORT=3000
+
+DB_HOST=db
+DB_PORT=3306
+DB_USER=admin
+DB_PASSWORD=admin@ec
+DB_NAME=education_connection
+
+MYSQL_PORT=3307
+MYSQL_ROOT_PASSWORD=root@ec
+MYSQL_USER=admin
+MYSQL_PASSWORD=admin@ec
+MYSQL_DATABASE=education_connection
+```
+
 
 ## Compile and run the project
 
@@ -38,14 +62,17 @@ $ yarn run start:dev
 $ yarn run start:prod
 ```
 
+Or simply run the `docker-compose` command to run the project in a Docker container.
+
+```bash
+$ docker-compose up
+```
+
 ## Run tests
 
 ```bash
 # unit tests
 $ yarn run test
-
-# e2e tests
-$ yarn run test:e2e
 
 # test coverage
 $ yarn run test:cov
@@ -57,3 +84,6 @@ $ yarn run test:cov
 $ yarn run lint
 $ yarn run format
 ```
+
+## Note
+- [Postman File](./education-connection.postman_collection.json) is available for testing purposes.
