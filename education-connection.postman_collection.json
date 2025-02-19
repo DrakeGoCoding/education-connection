@@ -1,0 +1,119 @@
+{
+  "info": {
+    "_postman_id": "a5e301c2-187a-4f36-abc9-ea2f544b0625",
+    "name": "NestJS - EducationConnection",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "40129760"
+  },
+  "item": [
+    {
+      "name": "registers students",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"teacher\": \"teacher1@gmail.com\",\r\n    \"students\": [\r\n        \"student1@gmail.com\",\r\n        \"student2@gmail.com\"\r\n    ]\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:3000/api/register",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "3000",
+          "path": ["api", "register"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "get notification receivable students",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"teacher\": \"teacher1@gmail.com\",\r\n    \"notification\": \"Hello student! @student4@gmail.com\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:3000/api/retrievefornotifications",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "3000",
+          "path": ["api", "retrievefornotifications"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "suspend student",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"students\": \"student1@gmail.com\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:3000/api/suspend",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "3000",
+          "path": ["api", "suspend"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "get common students",
+      "protocolProfileBehavior": {
+        "disableBodyPruning": true
+      },
+      "request": {
+        "method": "GET",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:3000/api/commonstudents?teacher=teacher1%40gmail.com&teacher=teacher2%40gmail.com",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "3000",
+          "path": ["api", "commonstudents"],
+          "query": [
+            {
+              "key": "teacher",
+              "value": "teacher1%40gmail.com"
+            },
+            {
+              "key": "teacher",
+              "value": "teacher2%40gmail.com"
+            }
+          ]
+        }
+      },
+      "response": []
+    }
+  ]
+}
