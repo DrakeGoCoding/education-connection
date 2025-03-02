@@ -12,6 +12,7 @@ Education Connection is a back-end application that helps teachers perform admin
 - Teacher can retrieve a list of students who can receive a given notification
 
 ## Pre-requisites
+
 - Node.js v22.12.0
 - Docker
 - Postman
@@ -48,8 +49,9 @@ MYSQL_PASSWORD=admin@ec
 MYSQL_DATABASE=education_connection
 ```
 
-
 ## Compile and run the project
+
+DB_HOST should be changed to localhost if you want to run the project locally.
 
 ```bash
 # development
@@ -67,6 +69,25 @@ Or simply run the `docker-compose` command to run the project in a Docker contai
 ```bash
 $ docker-compose up
 ```
+
+## Migrations and Seeds
+
+```bash
+# generate migrations
+$ yarn run migration:generate src/database/migrations/<migration-name>
+
+# run migrations
+$ yarn run migration:run
+
+# revert migrations
+$ yarn run migration:revert
+
+# run seeds
+$ yarn run seed
+```
+
+To run the migrations and seeds in Docker container, run the above commands with prefix
+`docker-compose exec builder <command>`.
 
 ## Run tests
 
@@ -86,4 +107,5 @@ $ yarn run format
 ```
 
 ## Note
+
 - [Postman File](./education-connection.postman_collection.json) is available for testing purposes.
