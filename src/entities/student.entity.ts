@@ -1,4 +1,10 @@
-import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
+import {
+  Column,
+  Entity,
+  Index,
+  OneToMany,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
 
 import { TeacherStudent } from './teacher-student.entity';
 import { Teacher } from './teacher.entity';
@@ -14,6 +20,7 @@ export class Student {
     nullable: false,
     unique: true,
   })
+  @Index('STUDENTS_EMAIL_IDX', { unique: true })
   email: string;
 
   @Column({ name: 'is_suspended', type: 'boolean', default: false })

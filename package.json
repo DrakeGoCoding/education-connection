@@ -7,7 +7,7 @@
   "license": "UNLICENSED",
   "scripts": {
     "build": "nest build",
-    "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
+    "format": "prettier --write \"src/**/*.ts\"",
     "start": "nest start",
     "start:dev": "nest start --watch",
     "start:debug": "nest start --debug --watch",
@@ -16,7 +16,12 @@
     "test": "jest",
     "test:watch": "jest --watch",
     "test:cov": "jest --coverage",
-    "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand"
+    "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
+    "typeorm": "ts-node -r tsconfig-paths/register node_modules/typeorm/cli.js",
+    "migration:generate": "yarn run typeorm migration:generate -d src/config/datasource.config.ts",
+    "migration:run": "yarn run typeorm migration:run -- -d src/config/datasource.config.ts",
+    "migration:revert": "yarn run typeorm migration:revert -- -d src/config/datasource.config.ts",
+    "seed": "ts-node -r tsconfig-paths/register src/database/seeds"
   },
   "dependencies": {
     "@nestjs/common": "^11.0.1",
@@ -26,6 +31,7 @@
     "@nestjs/typeorm": "^11.0.0",
     "class-transformer": "^0.5.1",
     "class-validator": "^0.14.1",
+    "dotenv": "^16.4.7",
     "mysql2": "^3.12.0",
     "reflect-metadata": "^0.2.2",
     "rxjs": "^7.8.1",

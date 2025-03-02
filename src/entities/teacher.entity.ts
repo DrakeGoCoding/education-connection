@@ -1,4 +1,10 @@
-import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
+import {
+  Column,
+  Entity,
+  Index,
+  OneToMany,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
 
 import { Student } from './student.entity';
 import { TeacherStudent } from './teacher-student.entity';
@@ -14,6 +20,7 @@ export class Teacher {
     nullable: false,
     unique: true,
   })
+  @Index('TEACHERS_EMAIL_IDX', { unique: true })
   email: string;
 
   @OneToMany(() => TeacherStudent, (teacherStudent) => teacherStudent.student)
